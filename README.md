@@ -1,115 +1,187 @@
-# AI Function-Calling Router with Pydantic and Injected Failure Recovery
+# AI Function-Calling Router with Pydantic & Failure Recovery
 
-A production-shaped function-calling orchestration layer: natural-language requests are
-routed to one of four typed tools, validated at a **Pydantic boundary**, executed through a
-**fault-injection middleware**, and repaired by **four distinct, bounded recovery policies**
-(one per failure class) with an **explicit give-up** instead of silent wrongness.
+When AI models call external tools (like search APIs, calendars, or databases), things often go wrong in real life:
+- **Missing details:** The user says *"Book a flight to Paris"*, and the AI forgets to ask for the date.
+- **Wrong format:** The AI sends `"tomorrow"` instead of the required date format `"2026-10-04"`.
+- **Timeouts:** The tool takes too long to respond or network drops.
+- **Messy replies:** The tool succeeds, but its reply shape doesn't match what the app expects.
+
+Most basic apps crash or get stuck in loops apologizing to the user. This project builds a **smart router** that catches these exact errors and fixes them automatically using **targeted recovery rules**.
+
+---
+
+## How It Works
+
+Instead of one generic "retry everything" loop, the system has four separate fix policies:
 
 ```mermaid
 graph TD
-    A[Natural Language Request] --> B[Router - Intent Engine]
-    B --> C[LLM - select tool and extract args]
-    C --> D[Pydantic Schema Validator]
-    D -- "missing" --> P1[Missing Field Re-prompt - bounded retry 1]
-    D -- "type error" --> P2[Type Correction Re-prompt - bounded retry 1]
-    D -- valid --> E[Fault Injector Middleware]
-    E -- TimeoutError --> P3[System Backoff and Retry - no LLM tokens]
-    E --> F[Mock Tool Implementations]
-    F --> G[Output Schema Validation]
-    G -- invalid --> P4[Response Schema Repair - bounded retry 1]
-    P1 --> H[Explicit Give-Up - no silent error]
+    A["User Request"] --> B["Router Intent Engine"]
+    B --> C["AI selects tool and extracts arguments"]
+    C --> D["Pydantic Schema Validator"]
+    D -- "Missing field" --> P1["Fix 1: Ask only for the missing detail (Max 1 retry)"]
+    D -- "Wrong format" --> P2["Fix 2: Convert format to standard (Max 1 retry)"]
+    D -- "Inputs valid" --> E["Fault Injector Middleware"]
+    E -- "Timeout" --> P3["Fix 3: Wait briefly and retry tool directly (Zero AI tokens)"]
+    E --> F["Tool Implementation"]
+    F --> G["Check Tool Output Shape"]
+    G -- "Messy output" --> P4["Fix 4: Reshape output to match schema (Max 1 retry)"]
+    P1 --> H["Give Up Safely: Return honest error message"]
     P2 --> H
     P3 --> H
     P4 --> H
-    G -- valid --> I[Final Standardized Success]
+    G -- "Clean output" --> I["Success: Return clean result"]
 ```
 
-## Quickstart (one command, fully offline)
+### The 4 Fix Policies
+
+| Problem | Example | How We Fix It | Retry Limit |
+| :--- | :--- | :--- | :---: |
+| **Missing Field** | User says *"Book a flight to Paris"* (no date). | Send a tiny prompt asking **only** for the missing date. We don't re-send the whole chat history. | 1 retry |
+| **Wrong Format** | AI provides date as `"tomorrow"` or duration as `"one hour"`. | Ask the model to convert that specific value into the expected format (`YYYY-MM-DD` or integer minutes). | 1 retry |
+| **Network Timeout** | Upstream API times out. | Wait 0.1s and run the tool function again directly. **No AI tokens are wasted.** | 1 retry |
+| **Messy Tool Response** | Tool returns `{temp_str: "72 degrees"}` instead of `{temperature: 72.0}`. | Ask the model to extract and reshape the raw data into our clean output schema. | 1 retry |
+
+### Giving Up Safely (No Fake Successes)
+
+Every recovery rule has a strict **1-retry limit**. If the tool still fails on the second attempt, the router immediately stops and returns an honest, structured error:
+```json
+{
+  "status": "error",
+  "reason": "timeout_unrecoverable"
+}
+```
+It **never** invents fake data and **never** leaks messy code errors to the user.
+
+---
+
+## 4 Built-In Tools
+
+1. **FlightSearch**: Search flights (`origin`, `destination`, `date`).
+2. **CalendarBooking**: Schedule events (`event_title`, `start_time`, `duration_minutes`).
+3. **WeatherLookup**: Check weather (`location`, `unit`: `"C"` or `"F"`).
+4. **UnitConversion**: Convert measurements (`value`, `from_unit`, `to_unit`).
+
+---
+
+## Quickstart
+
+### Option 1: Run with Docker (Recommended - 1 Command)
+
+You don't need any API keys. Everything runs fully offline with deterministic test responses:
 
 ```bash
 docker compose up --build --abort-on-container-exit
-# -> container installs deps, runs evaluate_router.py, exits 0
-# -> ./output/metrics.json and ./results/run_results.json appear on the host
 ```
 
-No API key is needed: the default LLM backend (`LLM_PROVIDER=offline`) is a deterministic
-heuristic stand-in with the same four call shapes as a real LLM client. To use a real
-OpenAI-compatible model, copy `.env.example` to `.env` and set `LLM_PROVIDER=openai`,
-`LLM_API_KEY`, and the pinned `LLM_MODEL_ID`.
+This will:
+1. Build the container and install dependencies.
+2. Run the full evaluation harness (`evaluate_router.py`).
+3. Save the results directly to `./output/metrics.json` and `./results/run_results.json` on your computer.
 
-## Quickstart (local)
+### Option 2: Run Locally
 
 ```bash
+# 1. Create and activate a virtual environment
 python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
-.venv/bin/python evaluate_router.py     # writes output/metrics.json
-.venv/bin/pytest -q                     # contract tests for req-1..req-8
+source .venv/bin/activate
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Run the evaluation benchmark
+python evaluate_router.py
+
+# 4. Run the automated test suite
+pytest -v
 ```
 
-## Metrics
+---
 
-`output/metrics.json` (contract shape):
+## Testing with Injected Faults
+
+To verify our recovery rules without waiting for real web APIs to fail, we built a **Fault Injector** (`src/faults.py`).
+
+Before running a tool, the test can turn on a specific simulated failure:
+- `NONE`: Tool runs normally.
+- `TIMEOUT`: Tool pauses and throws a `TimeoutError` (simulates a server glitch).
+- `TIMEOUT_PERSISTENT`: Tool always times out (tests that the system gives up cleanly).
+- `MALFORMED_RESPONSE`: Tool runs but returns scrambled keys (tests schema repair).
+- `MALFORMED_PERSISTENT`: Tool returns empty data (tests giving up when repair is impossible).
+
+---
+
+## Benchmark Results
+
+Running `evaluate_router.py` tests 56 varied queries through the system in two modes:
+1. **Baseline Mode (No Recovery):** Any missing field, wrong type, timeout, or messy output immediately fails.
+2. **Recovery Mode:** The targeted recovery rules are turned on.
+
+### Metrics Summary (`output/metrics.json`)
 
 ```json
 {
-  "baseline":        {"completion_rate": ..., "silent_wrong_rate": ..., "mean_recovery_attempts": 0},
-  "recovery_active": {"completion_rate": ..., "silent_wrong_rate": ..., "mean_recovery_attempts": ...}
+  "baseline": {
+    "completion_rate": 0.6071,
+    "silent_wrong_rate": 0.0,
+    "mean_recovery_attempts": 0
+  },
+  "recovery_active": {
+    "completion_rate": 0.9464,
+    "silent_wrong_rate": 0.0,
+    "mean_recovery_attempts": 0.3929
+  }
 }
 ```
 
-- **Completion rate** — requests ending in a validated, schema-compliant success payload.
-- **Silent wrong rate** — requests that *claimed* success but whose payload violates the
-  output schema (audited independently of the router's own validation). Strict output
-  validation plus the explicit give-up drives this to 0; a baseline system that passes bad
-  API data through would score > 0 here.
-- **Mean recovery attempts** — retry actions / total requests.
+### What these numbers mean:
+- **Completion Rate (60.7% ➔ 94.6%):** Turning on recovery policies increased successful task completion by **over 33%**.
+- **Silent Wrong Rate (0.0%):** The system **never** told the user a task succeeded when it had bad, broken, or hallucinated data.
+- **Mean Recovery Attempts (0.39):** It only takes an average of ~0.39 retries per request to fix failures, keeping execution fast and inexpensive.
 
-Per-case rows (status, policies triggered, attempts) are in `results/run_results.json`,
-so every number is recomputable from logged intermediates.
+---
 
-## The four failure classes and their DISTINCT policies
+## Project Structure
 
-| Failure class | Provoked by | Policy (in `src/recovery.py`, implemented in `src/router.py`) | Retry bound |
-|---|---|---|---|
-| Missing required field | request omits info ("Book a flight to Paris.") | tiny re-prompt for **only** the missing field, merged + retried | 1 |
-| Wrong type / format | loose phrasing ("tomorrow", "one hour", "five") | re-prompt to translate the bad value into the required format | 1 |
-| Timeout / transient outage | `injected_fault: TIMEOUT` | system-level backoff + direct Python retry — **zero LLM tokens** | 1 |
-| Malformed tool response | `injected_fault: MALFORMED` | re-prompt to extract the corrupted payload into the output schema | 1 |
+```
+├── Dockerfile              # Docker image setup
+├── docker-compose.yml      # 1-command reproducible container run
+├── requirements.txt        # Pinned Python dependencies
+├── .env.example            # Environment variables configuration
+├── evaluate_router.py      # Batch evaluation script comparing baseline vs recovery
+├── data/
+│   └── eval.jsonl          # 56 test requests covering all failure types
+├── output/
+│   └── metrics.json        # Output score comparison file
+├── results/
+│   └── run_results.json    # Detailed step-by-step audit logs of every test case
+├── src/
+│   ├── schemas.py          # Pydantic input and output models for all 4 tools
+│   ├── faults.py           # Fault injector middleware (TIMEOUT, MALFORMED, etc.)
+│   ├── tools.py            # The 4 mock tool implementations
+│   ├── router.py           # Core routing and recovery engine
+│   ├── recovery.py         # Recovery policy prompt templates
+│   ├── llm.py              # LLM adapters (Offline deterministic + OpenAI compatible)
+│   └── config.py           # Pinned configuration settings
+└── tests/
+    ├── test_schemas.py     # Schema validation tests
+    ├── test_faults.py      # Fault injector tests
+    └── test_router.py      # Recovery policy and end-to-end routing tests
+```
 
-After the bound, the router returns exactly
-`{"status": "error", "reason": "<failure_class>_unrecoverable"}` — never a fabricated
-success, never a stack trace (`missing_field_unrecoverable`, `type_error_unrecoverable`,
-`timeout_unrecoverable`, `schema_repair_unrecoverable`).
+---
 
-The fault injector (`src/faults.py`) supports `NONE`, `TIMEOUT` (transient),
-`TIMEOUT_PERSISTENT`, `MALFORMED` (transient, payload still repairable), and
-`MALFORMED_PERSISTENT` (data destroyed → exercises the explicit give-up).
+## Requirement Checklist
 
-## Dataset
-
-`data/eval.jsonl` — 56 cases across the four tools. 34 sunny-day cases; 22 (≈39%) encounter
-a failure requiring recovery: 5 missing-field, 5 wrong-type, 5 transient timeout,
-2 persistent timeout, 4 repairable malformed, 1 unrecoverable malformed. Missing-field and
-wrong-type cases are provoked **natively** by the phrasing (omitted dates, "next Tuesday",
-"one hour"), not injected.
-
-## Pinned configuration
-
-Everything that can move a number is pinned via `.env.example` / `src/config.py`:
-`EVAL_TODAY` (reference date for relative dates), `LLM_PROVIDER`, `LLM_MODEL_ID`,
-`TIMEOUT_BACKOFF_S`. Re-running the harness with the same pins reproduces the same metrics.
-
-## Requirement map
-
-| Requirement | Where |
-|---|---|
-| req-1 tool schemas | `src/schemas.py`, `tests/test_schemas.py` |
-| req-2 fault injector | `src/faults.py`, `tests/test_faults.py` |
-| req-3 happy path | `src/router.py`, `tests/test_router.py::test_happy_path_no_recovery_triggered` |
-| req-4 missing-field policy | `src/router.py`, `src/llm.py::fill_missing_field` |
-| req-5 type-error policy | `src/router.py`, `src/llm.py::correct_type` |
-| req-6 timeout policy (no LLM) | `src/router.py` (backoff + direct retry) |
-| req-7 schema repair | `src/router.py`, `src/llm.py::repair_schema` |
-| req-8 explicit give-up | `src/router.py::_fail` |
-| req-9 evaluation harness | `evaluate_router.py`, `data/eval.jsonl`, `output/metrics.json` |
-| req-10 containerized run | `Dockerfile`, `docker-compose.yml` |
+| Requirement | What It Does | Where to Find It |
+| :--- | :--- | :--- |
+| **req-1** | 4 tools with Pydantic input and output validation | [`src/schemas.py`](src/schemas.py), [`tests/test_schemas.py`](tests/test_schemas.py) |
+| **req-2** | Fault injector for timeouts, malformed replies, and passthrough | [`src/faults.py`](src/faults.py), [`tests/test_faults.py`](tests/test_faults.py) |
+| **req-3** | Smooth path: clean requests succeed with 0 retries | [`src/router.py`](src/router.py), [`tests/test_router.py`](tests/test_router.py) |
+| **req-4** | Missing fields: tiny targeted re-prompt for missing detail | [`src/router.py`](src/router.py), [`src/llm.py`](src/llm.py) |
+| **req-5** | Wrong format: translate bad values (e.g. "tomorrow" to ISO date) | [`src/router.py`](src/router.py), [`src/llm.py`](src/llm.py) |
+| **req-6** | Timeout: wait and retry directly without using AI tokens | [`src/router.py`](src/router.py) |
+| **req-7** | Response repair: fix scrambled tool outputs to match schema | [`src/router.py`](src/router.py), [`src/llm.py`](src/llm.py) |
+| **req-8** | Explicit give-up: clean error message after 1 failed retry | [`src/router.py`](src/router.py) (`_fail`) |
+| **req-9** | Evaluation harness: compares baseline vs recovery on 50+ cases | [`evaluate_router.py`](evaluate_router.py), [`data/eval.jsonl`](data/eval.jsonl) |
+| **req-10** | Containerization: runs completely with `docker compose up` | [`docker-compose.yml`](docker-compose.yml), [`Dockerfile`](Dockerfile) |
