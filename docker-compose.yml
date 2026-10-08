@@ -1,0 +1,22 @@
+services:
+  eval:
+    build: .
+    image: function-calling-router:latest
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      LLM_PROVIDER: ${LLM_PROVIDER:-offline}
+      LLM_MODEL_ID: ${LLM_MODEL_ID:-offline-heuristic-v1}
+      EVAL_TODAY: ${EVAL_TODAY:-2026-10-03}
+      TIMEOUT_BACKOFF_S: ${TIMEOUT_BACKOFF_S:-0.1}
+    volumes:
+      - ./output:/app/output
+      - ./results:/app/results
+    restart: "no"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import src.router, src.llm; print('ok')"]
+      interval: 15s
+      timeout: 5s
+      retries: 2
+      start_period: 5s
