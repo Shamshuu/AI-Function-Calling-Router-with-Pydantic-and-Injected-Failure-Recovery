@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Function-Calling Router — Pydantic & Injected Failure Recovery</title>
+<style>
+  :root {
+    --bg: #0f1220; --panel: #181c30; --panel-2: #1f2440; --text: #e8ebf7;
+    --muted: #9aa3c7; --accent: #7c9cff; --accent-2: #5eead4;
+    --danger: #fb7185; --border: #2a3054; --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    background: radial-gradient(1200px 600px at 80% -10%, #26305c 0%, var(--bg) 55%);
+    color: var(--text); line-height: 1.6;
+  }
+  .wrap { max-width: 1020px; margin: 0 auto; padding: 44px 24px 72px; }
+  .badge {
+    display: inline-block; font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent-2); border: 1px solid var(--border); background: var(--panel);
+    padding: 4px 12px; border-radius: 999px; margin-bottom: 18px;
+  }
+  h1 { font-size: clamp(26px, 4.5vw, 40px); line-height: 1.15; margin: 0 0 10px; }
+  h1 .grad { background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sub { color: var(--muted); font-size: 16px; max-width: 760px; margin: 0 0 30px; }
+  h2 { font-size: 20px; margin: 38px 0 14px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+  .card h3 { margin: 0 0 6px; font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  .big { font-size: 34px; font-weight: 700; margin: 4px 0; }
+  .big .up { color: var(--accent-2); } .big .flat { color: var(--accent-2); }
+  .note { color: var(--muted); font-size: 13px; margin: 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+  tr:last-child td { border-bottom: none; }
+  td code, p code, li code { background: var(--panel-2); border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; font-size: 13px; }
+  .ok { color: var(--accent-2); } .bad { color: var(--danger); }
+  .pill { display: inline-block; background: var(--panel-2); border: 1px solid var(--border); border-radius: 999px; padding: 2px 10px; font-size: 12.5px; margin: 2px 4px 2px 0; }
+  pre { background: #0b0e1a; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; overflow-x: auto; font-size: 13px; color: #cdd6f4; }
+  footer { margin-top: 44px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--border); padding-top: 16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge">Pydantic · Fault Injection · Bounded Recovery · Evaluated</span>
+    <h1>AI Function-Calling Router with<br /><span class="grad">Injected Failure Recovery</span></h1>
+    <p class="sub">
+      A typed orchestration layer: NL requests → LLM tool selection → Pydantic validation →
+      fault-injected execution → output-schema validation, with <strong>four distinct recovery
+      policies</strong> (one per failure class), a strict retry bound of 1, and an explicit
+      give-up — never a fabricated success.
+    </p>
+  </header>
+
+  <h2>Evaluated results — 56 cases, 39% with injected/provoked failures</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Completion rate</h3>
+      <div class="big">0.607 → <span class="up">0.946</span></div>
+      <p class="note">baseline (no recovery) → recovery active. The recovery layer lifts completion by +33.9 points at the same fault mix.</p>
+    </div>
+    <div class="card">
+      <h3>Silent wrong rate</h3>
+      <div class="big"><span class="flat">0.000</span></div>
+      <p class="note">Strict output-schema validation + explicit give-up: no fabricated successes in either mode.</p>
+    </div>
+    <div class="card">
+      <h3>Mean recovery attempts</h3>
+      <div class="big">0 → <span class="up">0.393</span></div>
+      <p class="note">Retry actions per request across the dataset; every policy is bounded to exactly 1 retry.</p>
+    </div>
+  </div>
+  <p class="note" style="margin-top:10px">Source of truth: <code>output/metrics.json</code> · per-case audit trail with policies triggered: <code>results/run_results.json</code></p>
+
+  <h2>Four failure classes, four distinct policies</h2>
+  <table>
+    <thead><tr><th>Failure class</th><th>How it's provoked</th><th>Policy</th><th>Bound</th></tr></thead>
+    <tbody>
+      <tr><td><code>missing_field</code></td><td>request omits info ("Book a flight to Paris.")</td><td>tiny re-prompt for <em>only</em> the missing field, merged + retried</td><td>1 retry</td></tr>
+      <tr><td><code>type_error</code></td><td>loose phrasing ("tomorrow", "one hour", "five")</td><td>re-prompt to translate the bad value into the required format</td><td>1 retry</td></tr>
+      <tr><td><code>timeout</code></td><td>injected <code>TIMEOUT</code></td><td>system backoff + direct Python retry — <strong>zero LLM tokens</strong></td><td>1 retry</td></tr>
+      <tr><td><code>schema_repair</code></td><td>injected <code>MALFORMED</code></td><td>re-prompt to extract the corrupted payload into the output schema</td><td>1 retry</td></tr>
+    </tbody>
+  </table>
+  <p class="note" style="margin-top:10px">After the bound the router returns exactly
+  <code>{"status": "error", "reason": "&lt;failure_class&gt;_unrecoverable"}</code> — the explicit give-up.</p>
+
+  <h2>Dataset composition (data/eval.jsonl)</h2>
+  <table>
+    <thead><tr><th>Category</th><th>Cases</th><th>Baseline</th><th>Recovery</th></tr></thead>
+    <tbody>
+      <tr><td>Sunny-day (all args, <code>NONE</code>)</td><td>34</td><td class="ok">success</td><td class="ok">success</td></tr>
+      <tr><td>Missing required field (native)</td><td>5</td><td class="bad">fail</td><td class="ok">recovered</td></tr>
+      <tr><td>Wrong type / format (native)</td><td>5</td><td class="bad">fail</td><td class="ok">recovered</td></tr>
+      <tr><td>Transient timeout (injected)</td><td>5</td><td class="bad">fail</td><td class="ok">recovered</td></tr>
+      <tr><td>Persistent timeout (injected)</td><td>2</td><td class="bad">fail</td><td class="bad">explicit give-up</td></tr>
+      <tr><td>Repairable malformed response (injected)</td><td>4</td><td class="bad">fail</td><td class="ok">repaired</td></tr>
+      <tr><td>Unrecoverable malformed (injected)</td><td>1</td><td class="bad">fail</td><td class="bad">explicit give-up</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Run it yourself</h2>
+  <pre>docker compose up --build --abort-on-container-exit   # one command, fully offline, exit 0
+
+# or locally
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+.venv/bin/python evaluate_router.py    # → output/metrics.json
+.venv/bin/pytest -q                    # 30 contract tests (req-1 … req-8)</pre>
+
+  <h2>Architecture</h2>
+  <div>
+    <span class="pill">Router / Intent Engine</span><span class="pill">Pydantic Validation Boundary</span>
+    <span class="pill">Fault Injector Middleware</span><span class="pill">Mock Tool Implementations</span>
+    <span class="pill">Targeted Recovery Engine</span><span class="pill">Explicit Give-Up</span>
+    <span class="pill">Batch Evaluation Harness</span>
+  </div>
+
+  <footer>
+    Repo: <code>AI-Function-Calling-Router-with-Pydantic-and-Injected-Failure-Recovery</code> ·
+    Pins: <code>EVAL_TODAY=2026-10-03</code>, <code>LLM_MODEL_ID=offline-heuristic-v1</code> ·
+    This dashboard is a static snapshot of the committed run; regenerate with the commands above.
+  </footer>
+</div>
+</body>
+</html>
