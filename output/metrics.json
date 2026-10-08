@@ -1,0 +1,12 @@
+{
+  "baseline": {
+    "completion_rate": 0.6071,
+    "silent_wrong_rate": 0.0,
+    "mean_recovery_attempts": 0
+  },
+  "recovery_active": {
+    "completion_rate": 0.9464,
+    "silent_wrong_rate": 0.0,
+    "mean_recovery_attempts": 0.3929
+  }
+}
