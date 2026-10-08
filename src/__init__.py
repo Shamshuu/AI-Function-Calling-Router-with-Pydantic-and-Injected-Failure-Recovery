@@ -1,0 +1,53 @@
+"""AI Function-Calling Router with Pydantic and Injected-Failure Recovery."""
+from src.faults import (
+    FAULT_MALFORMED,
+    FAULT_MALFORMED_PERSISTENT,
+    FAULT_MALFORMED_RESPONSE,
+    FAULT_NONE,
+    FAULT_TIMEOUT,
+    FAULT_TIMEOUT_PERSISTENT,
+    FaultContext,
+    inject_fault,
+    inject_faults,
+)
+from src.router import RunStats, process_request
+from src.schemas import (
+    CalendarBooking,
+    CalendarBookingArgs,
+    CalendarBookingResult,
+    FlightSearch,
+    FlightSearchArgs,
+    FlightSearchResult,
+    UnitConversion,
+    UnitConversionArgs,
+    UnitConversionResult,
+    WeatherLookup,
+    WeatherLookupArgs,
+    WeatherLookupResult,
+)
+
+__all__ = [
+    "process_request",
+    "RunStats",
+    "FaultContext",
+    "inject_fault",
+    "inject_faults",
+    "FAULT_NONE",
+    "FAULT_TIMEOUT",
+    "FAULT_TIMEOUT_PERSISTENT",
+    "FAULT_MALFORMED",
+    "FAULT_MALFORMED_RESPONSE",
+    "FAULT_MALFORMED_PERSISTENT",
+    "FlightSearch",
+    "FlightSearchArgs",
+    "FlightSearchResult",
+    "CalendarBooking",
+    "CalendarBookingArgs",
+    "CalendarBookingResult",
+    "WeatherLookup",
+    "WeatherLookupArgs",
+    "WeatherLookupResult",
+    "UnitConversion",
+    "UnitConversionArgs",
+    "UnitConversionResult",
+]
