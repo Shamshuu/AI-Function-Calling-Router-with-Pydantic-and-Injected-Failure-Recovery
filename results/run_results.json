@@ -1,0 +1,1414 @@
+{
+  "pinned_config": {
+    "eval_today": "2026-10-03",
+    "llm_provider": "offline",
+    "llm_model_id": "offline-heuristic-v1",
+    "timeout_backoff_s": 0.1
+  },
+  "baseline": {
+    "metrics": {
+      "completion_rate": 0.6071,
+      "silent_wrong_rate": 0.0,
+      "mean_recovery_attempts": 0
+    },
+    "rows": [
+      {
+        "id": 1,
+        "request": "Book a flight from JFK to LHR on 2026-10-10.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 2,
+        "request": "Get the weather in Tokyo in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 3,
+        "request": "Convert 5 kg to lbs.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 4,
+        "request": "Schedule 'Design Sync' on 2026-10-05 at 10:00 for 45 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 5,
+        "request": "Book a flight from MIA to JFK on 2024-10-10.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 6,
+        "request": "Get the weather in Paris in fahrenheit.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 7,
+        "request": "Convert 12 inches to cm.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 8,
+        "request": "Schedule 'Standup' on 2026-10-06 at 09:30 for 15 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 9,
+        "request": "Book a flight from Mumbai to Delhi on 2026-10-12.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 10,
+        "request": "Get the weather in Reykjavik in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 11,
+        "request": "Convert 100 dollars to euros.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 12,
+        "request": "Schedule 'Quarterly Review' on 2026-11-01 at 14:00 for 90 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 13,
+        "request": "Book a flight from SFO to SEA on 2026-10-20.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 14,
+        "request": "Get the weather in Cairo in fahrenheit.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 15,
+        "request": "Convert 3 miles to kilometers.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 16,
+        "request": "Schedule 'Dentist' on 2026-10-15 at 08:15 for 60 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 17,
+        "request": "Book a flight from LAX to ORD on 2026-10-25.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 18,
+        "request": "Get the weather in Oslo in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 19,
+        "request": "Convert 45 kilograms to grams.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 20,
+        "request": "Schedule 'Yoga' on 2026-10-08 at 07:00 for 75 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 21,
+        "request": "Book a flight from CDG to FCO on 2026-10-18.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 22,
+        "request": "Get the weather in Nairobi in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 23,
+        "request": "Convert 2 cups to milliliters.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 24,
+        "request": "Schedule 'Sprint Planning' on 2026-10-07 at 11:00 for 120 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 25,
+        "request": "Book a flight from DEL to BOM on 2026-10-30.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 26,
+        "request": "Get the weather in Lima in fahrenheit.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 27,
+        "request": "Convert 8 ounces to grams.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 28,
+        "request": "Schedule 'Code Review' on 2026-10-09 at 16:30 for 30 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 29,
+        "request": "Book a flight from AMS to BER on 2026-11-02.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 30,
+        "request": "Get the weather in Helsinki in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 31,
+        "request": "Convert 500 grams to kilograms.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 32,
+        "request": "Schedule '1:1 with Ana' on 2026-10-13 at 13:00 for 30 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 33,
+        "request": "Book a flight from GRU to EZE on 2026-10-22.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 34,
+        "request": "Get the weather in Bangkok in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 35,
+        "request": "Book a flight to Paris.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "error",
+        "reason": "missing_field_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 36,
+        "request": "Get the weather in Tokyo.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "error",
+        "reason": "missing_field_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 37,
+        "request": "Schedule 'Team Lunch' for 60 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "error",
+        "reason": "missing_field_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 38,
+        "request": "Convert 3 kg.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "error",
+        "reason": "missing_field_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 39,
+        "request": "Book a flight from BER to ROM.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "error",
+        "reason": "missing_field_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 40,
+        "request": "Book a flight from JFK to LHR tomorrow.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "error",
+        "reason": "type_error_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 41,
+        "request": "Schedule 'Standup' tomorrow at 9am for 15 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "error",
+        "reason": "type_error_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 42,
+        "request": "Book a flight from MIA to JFK next Tuesday.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "error",
+        "reason": "type_error_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 43,
+        "request": "Schedule 'Board Briefing' on 2026-10-09 at 12:00 for one hour.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "error",
+        "reason": "type_error_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 44,
+        "request": "Convert five kg to lbs.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "error",
+        "reason": "type_error_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 45,
+        "request": "Book a flight from JFK to LHR on 2026-10-10.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "TIMEOUT",
+        "status": "error",
+        "reason": "timeout_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 46,
+        "request": "Get the weather in Tokyo in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "TIMEOUT",
+        "status": "error",
+        "reason": "timeout_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 47,
+        "request": "Convert 5 kg to lbs.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "TIMEOUT",
+        "status": "error",
+        "reason": "timeout_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 48,
+        "request": "Schedule 'Design Sync' on 2026-10-05 at 10:00 for 45 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "TIMEOUT",
+        "status": "error",
+        "reason": "timeout_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 49,
+        "request": "Book a flight from SFO to SEA on 2026-10-20.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "TIMEOUT",
+        "status": "error",
+        "reason": "timeout_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 50,
+        "request": "Book a flight from LAX to ORD on 2026-10-25.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "TIMEOUT_PERSISTENT",
+        "status": "error",
+        "reason": "timeout_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 51,
+        "request": "Get the weather in Oslo in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "TIMEOUT_PERSISTENT",
+        "status": "error",
+        "reason": "timeout_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 52,
+        "request": "Book a flight from CDG to FCO on 2026-10-18.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "MALFORMED",
+        "status": "error",
+        "reason": "schema_repair_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 53,
+        "request": "Get the weather in Cairo in fahrenheit.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "MALFORMED",
+        "status": "error",
+        "reason": "schema_repair_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 54,
+        "request": "Convert 3 miles to kilometers.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "MALFORMED",
+        "status": "error",
+        "reason": "schema_repair_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 55,
+        "request": "Schedule 'Yoga' on 2026-10-08 at 07:00 for 75 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "MALFORMED",
+        "status": "error",
+        "reason": "schema_repair_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 56,
+        "request": "Get the weather in Nairobi in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "MALFORMED_PERSISTENT",
+        "status": "error",
+        "reason": "schema_repair_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      }
+    ]
+  },
+  "recovery_active": {
+    "metrics": {
+      "completion_rate": 0.9464,
+      "silent_wrong_rate": 0.0,
+      "mean_recovery_attempts": 0.3929
+    },
+    "rows": [
+      {
+        "id": 1,
+        "request": "Book a flight from JFK to LHR on 2026-10-10.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 2,
+        "request": "Get the weather in Tokyo in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 3,
+        "request": "Convert 5 kg to lbs.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 4,
+        "request": "Schedule 'Design Sync' on 2026-10-05 at 10:00 for 45 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 5,
+        "request": "Book a flight from MIA to JFK on 2024-10-10.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 6,
+        "request": "Get the weather in Paris in fahrenheit.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 7,
+        "request": "Convert 12 inches to cm.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 8,
+        "request": "Schedule 'Standup' on 2026-10-06 at 09:30 for 15 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 9,
+        "request": "Book a flight from Mumbai to Delhi on 2026-10-12.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 10,
+        "request": "Get the weather in Reykjavik in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 11,
+        "request": "Convert 100 dollars to euros.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 12,
+        "request": "Schedule 'Quarterly Review' on 2026-11-01 at 14:00 for 90 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 13,
+        "request": "Book a flight from SFO to SEA on 2026-10-20.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 14,
+        "request": "Get the weather in Cairo in fahrenheit.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 15,
+        "request": "Convert 3 miles to kilometers.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 16,
+        "request": "Schedule 'Dentist' on 2026-10-15 at 08:15 for 60 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 17,
+        "request": "Book a flight from LAX to ORD on 2026-10-25.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 18,
+        "request": "Get the weather in Oslo in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 19,
+        "request": "Convert 45 kilograms to grams.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 20,
+        "request": "Schedule 'Yoga' on 2026-10-08 at 07:00 for 75 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 21,
+        "request": "Book a flight from CDG to FCO on 2026-10-18.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 22,
+        "request": "Get the weather in Nairobi in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 23,
+        "request": "Convert 2 cups to milliliters.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 24,
+        "request": "Schedule 'Sprint Planning' on 2026-10-07 at 11:00 for 120 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 25,
+        "request": "Book a flight from DEL to BOM on 2026-10-30.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 26,
+        "request": "Get the weather in Lima in fahrenheit.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 27,
+        "request": "Convert 8 ounces to grams.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 28,
+        "request": "Schedule 'Code Review' on 2026-10-09 at 16:30 for 30 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 29,
+        "request": "Book a flight from AMS to BER on 2026-11-02.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 30,
+        "request": "Get the weather in Helsinki in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 31,
+        "request": "Convert 500 grams to kilograms.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 32,
+        "request": "Schedule '1:1 with Ana' on 2026-10-13 at 13:00 for 30 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 33,
+        "request": "Book a flight from GRU to EZE on 2026-10-22.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 34,
+        "request": "Get the weather in Bangkok in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 0,
+        "policies_triggered": [],
+        "silent_wrong": false
+      },
+      {
+        "id": 35,
+        "request": "Book a flight to Paris.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "missing_field"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 36,
+        "request": "Get the weather in Tokyo.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "missing_field"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 37,
+        "request": "Schedule 'Team Lunch' for 60 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "missing_field"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 38,
+        "request": "Convert 3 kg.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "missing_field"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 39,
+        "request": "Book a flight from BER to ROM.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "missing_field"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 40,
+        "request": "Book a flight from JFK to LHR tomorrow.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "type_error"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 41,
+        "request": "Schedule 'Standup' tomorrow at 9am for 15 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "type_error"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 42,
+        "request": "Book a flight from MIA to JFK next Tuesday.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "type_error"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 43,
+        "request": "Schedule 'Board Briefing' on 2026-10-09 at 12:00 for one hour.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "type_error"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 44,
+        "request": "Convert five kg to lbs.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "NONE",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "type_error"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 45,
+        "request": "Book a flight from JFK to LHR on 2026-10-10.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "TIMEOUT",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "timeout"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 46,
+        "request": "Get the weather in Tokyo in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "TIMEOUT",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "timeout"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 47,
+        "request": "Convert 5 kg to lbs.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "TIMEOUT",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "timeout"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 48,
+        "request": "Schedule 'Design Sync' on 2026-10-05 at 10:00 for 45 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "TIMEOUT",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "timeout"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 49,
+        "request": "Book a flight from SFO to SEA on 2026-10-20.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "TIMEOUT",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "timeout"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 50,
+        "request": "Book a flight from LAX to ORD on 2026-10-25.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "TIMEOUT_PERSISTENT",
+        "status": "error",
+        "reason": "timeout_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "timeout"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 51,
+        "request": "Get the weather in Oslo in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "TIMEOUT_PERSISTENT",
+        "status": "error",
+        "reason": "timeout_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "timeout"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 52,
+        "request": "Book a flight from CDG to FCO on 2026-10-18.",
+        "expected_tool": "FlightSearch",
+        "injected_fault": "MALFORMED",
+        "status": "success",
+        "reason": null,
+        "tool": "FlightSearch",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "schema_repair"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 53,
+        "request": "Get the weather in Cairo in fahrenheit.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "MALFORMED",
+        "status": "success",
+        "reason": null,
+        "tool": "WeatherLookup",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "schema_repair"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 54,
+        "request": "Convert 3 miles to kilometers.",
+        "expected_tool": "UnitConversion",
+        "injected_fault": "MALFORMED",
+        "status": "success",
+        "reason": null,
+        "tool": "UnitConversion",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "schema_repair"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 55,
+        "request": "Schedule 'Yoga' on 2026-10-08 at 07:00 for 75 minutes.",
+        "expected_tool": "CalendarBooking",
+        "injected_fault": "MALFORMED",
+        "status": "success",
+        "reason": null,
+        "tool": "CalendarBooking",
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "schema_repair"
+        ],
+        "silent_wrong": false
+      },
+      {
+        "id": 56,
+        "request": "Get the weather in Nairobi in celsius.",
+        "expected_tool": "WeatherLookup",
+        "injected_fault": "MALFORMED_PERSISTENT",
+        "status": "error",
+        "reason": "schema_repair_unrecoverable",
+        "tool": null,
+        "recovery_attempts": 1,
+        "policies_triggered": [
+          "schema_repair"
+        ],
+        "silent_wrong": false
+      }
+    ]
+  }
+}
